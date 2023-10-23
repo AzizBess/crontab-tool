@@ -11,7 +11,7 @@ import SwiftUI
 struct Write_Your_Own_Crontab_ToolApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            CrontabView(viewModel: CrontabViewModel())
         }
     }
 }

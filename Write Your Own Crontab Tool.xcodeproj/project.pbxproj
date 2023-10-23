@@ -8,12 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		8B0244922AE5531B00BE4A61 /* Write_Your_Own_Crontab_ToolApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0244912AE5531B00BE4A61 /* Write_Your_Own_Crontab_ToolApp.swift */; };
-		8B0244942AE5531B00BE4A61 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0244932AE5531B00BE4A61 /* ContentView.swift */; };
+		8B0244942AE5531B00BE4A61 /* CrontabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0244932AE5531B00BE4A61 /* CrontabView.swift */; };
 		8B0244962AE5531C00BE4A61 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B0244952AE5531C00BE4A61 /* Assets.xcassets */; };
 		8B0244992AE5531C00BE4A61 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B0244982AE5531C00BE4A61 /* Preview Assets.xcassets */; };
 		8B0244A32AE5531D00BE4A61 /* Write_Your_Own_Crontab_ToolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0244A22AE5531D00BE4A61 /* Write_Your_Own_Crontab_ToolTests.swift */; };
 		8B0244AD2AE5531D00BE4A61 /* Write_Your_Own_Crontab_ToolUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0244AC2AE5531D00BE4A61 /* Write_Your_Own_Crontab_ToolUITests.swift */; };
 		8B0244AF2AE5531D00BE4A61 /* Write_Your_Own_Crontab_ToolUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0244AE2AE5531D00BE4A61 /* Write_Your_Own_Crontab_ToolUITestsLaunchTests.swift */; };
+		8B0244BC2AE55C1900BE4A61 /* CrontabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0244BB2AE55C1900BE4A61 /* CrontabViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +37,7 @@
 /* Begin PBXFileReference section */
 		8B02448E2AE5531B00BE4A61 /* Write Your Own Crontab Tool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Write Your Own Crontab Tool.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B0244912AE5531B00BE4A61 /* Write_Your_Own_Crontab_ToolApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Write_Your_Own_Crontab_ToolApp.swift; sourceTree = "<group>"; };
-		8B0244932AE5531B00BE4A61 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		8B0244932AE5531B00BE4A61 /* CrontabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrontabView.swift; sourceTree = "<group>"; };
 		8B0244952AE5531C00BE4A61 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8B0244982AE5531C00BE4A61 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8B02449E2AE5531D00BE4A61 /* Write Your Own Crontab ToolTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Write Your Own Crontab ToolTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,6 +45,7 @@
 		8B0244A82AE5531D00BE4A61 /* Write Your Own Crontab ToolUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Write Your Own Crontab ToolUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B0244AC2AE5531D00BE4A61 /* Write_Your_Own_Crontab_ToolUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Write_Your_Own_Crontab_ToolUITests.swift; sourceTree = "<group>"; };
 		8B0244AE2AE5531D00BE4A61 /* Write_Your_Own_Crontab_ToolUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Write_Your_Own_Crontab_ToolUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		8B0244BB2AE55C1900BE4A61 /* CrontabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrontabViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,7 +97,8 @@
 			isa = PBXGroup;
 			children = (
 				8B0244912AE5531B00BE4A61 /* Write_Your_Own_Crontab_ToolApp.swift */,
-				8B0244932AE5531B00BE4A61 /* ContentView.swift */,
+				8B0244932AE5531B00BE4A61 /* CrontabView.swift */,
+				8B0244BB2AE55C1900BE4A61 /* CrontabViewModel.swift */,
 				8B0244952AE5531C00BE4A61 /* Assets.xcassets */,
 				8B0244972AE5531C00BE4A61 /* Preview Content */,
 			);
@@ -257,7 +260,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B0244942AE5531B00BE4A61 /* ContentView.swift in Sources */,
+				8B0244BC2AE55C1900BE4A61 /* CrontabViewModel.swift in Sources */,
+				8B0244942AE5531B00BE4A61 /* CrontabView.swift in Sources */,
 				8B0244922AE5531B00BE4A61 /* Write_Your_Own_Crontab_ToolApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

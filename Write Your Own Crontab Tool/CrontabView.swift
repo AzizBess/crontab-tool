@@ -7,20 +7,15 @@
 
 import SwiftUI
 
-struct ContentView: View {
-    
-    let symbolsMeaning: [(symbol: String, meaning: String)] =
-    [
-        (symbol: "*", meaning: "any value (wildcard)"),
-        (symbol:",", meaning: "list separator (i.e.: 0, 15, 30, 45)"),
-        (symbol:"-", meaning: "ranger separator (i.e. 1-5)"),
-        (symbol:"/", meaning: "step values (i.e. 1/10)")
-    ]
-    
+struct CrontabView: View {
+    @StateObject var viewModel: CrontabViewModel
     @State var cronPattern = "* * * * *"
     @State var cronPatternMeaning = "Every Minute"
     var body: some View {
         VStack {
+            Image("map")
+                .resizable()
+                .scaledToFit()
             Text("Cron Pattern")
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, 20)
@@ -30,6 +25,9 @@ struct ContentView: View {
                 .overlay {
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color.green)
+                }
+                .onChange(of: cronPattern) {
+                    viewModel.cronPatternDidChange($0)
                 }
             
             Text("Cron Pattern Meaning")
@@ -43,14 +41,22 @@ struct ContentView: View {
                         .stroke(Color.green)
                 }
             
+            if let error = viewModel.error {
+                Text("Title \(error.title) || Description \(error.errorDescription)")
+            } else {
+                Text(" VALID CRON PATTERN ")
+            }
+            
             List {
                 RowView(leftVal: "Symbol", rightVal: "Meaning")
                     .bold()
                     .padding(.bottom, 10)
-                ForEach(symbolsMeaning, id:\.symbol) {
+                ForEach(viewModel.symbolsMeaning, id:\.symbol) {
                     RowView(leftVal: $0.symbol, rightVal: $0.meaning)
                 }
             }
+
+            
             .listRowSeparatorTint(.green, edges: .all)
             .listStyle(.plain)
         }
@@ -62,7 +68,7 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    CrontabView(viewModel: CrontabViewModel())
 }
 
 
