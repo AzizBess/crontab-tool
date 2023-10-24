@@ -26,13 +26,26 @@ struct CrontabView: View {
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color.green)
                 }
-                .onChange(of: cronPattern) {
-                    viewModel.cronPatternDidChange($0)
-                }
+            Button {
+                viewModel.cronPatternDidChange(cronPattern)
+            } label: {
+                Text("Validate")
+                    .foregroundStyle(Color.white.gradient)
+                    .font(.title3)
+                    .background(Color.green)
+                    .padding()
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+            }
+            
+            if let error = viewModel.error {
+                Text("Title \(error.title) || Description \(error.errorDescription)")
+                    .fontDesign(.rounded)
+                    .foregroundStyle(.red)
+                    .font(.caption)
+            }
             
             Text("Cron Pattern Meaning")
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.top, 20)
             Text(cronPatternMeaning)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding()
@@ -40,12 +53,6 @@ struct CrontabView: View {
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color.green)
                 }
-            
-            if let error = viewModel.error {
-                Text("Title \(error.title) || Description \(error.errorDescription)")
-            } else {
-                Text(" VALID CRON PATTERN ")
-            }
             
             List {
                 RowView(leftVal: "Symbol", rightVal: "Meaning")
@@ -55,7 +62,7 @@ struct CrontabView: View {
                     RowView(leftVal: $0.symbol, rightVal: $0.meaning)
                 }
             }
-
+            
             
             .listRowSeparatorTint(.green, edges: .all)
             .listStyle(.plain)
