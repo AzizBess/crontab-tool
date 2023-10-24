@@ -30,13 +30,13 @@ struct CrontabView: View {
                     viewModel.cronPatternDidChange(cronPattern)
                 }
 
-            if let error = viewModel.error {
+            if let error = viewModel.errors.first {
                 Text("Invalid Cron Pattern")
                     .fontDesign(.rounded)
                     .foregroundStyle(.red)
                     .frame(maxWidth: .infinity, alignment: .leading)
 //                    .padding(.top, 10)
-                Text([error.title, ": ", error.errorDescription].joined())
+                Text([error?.title, ": ", error?.errorDescription].compactMap({ $0 }).joined())
                     .fontDesign(.rounded)
                     .font(.caption)
                     .multilineTextAlignment(.leading)
