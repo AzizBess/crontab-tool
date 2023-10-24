@@ -23,20 +23,25 @@ struct CrontabView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding()
                 .overlay {
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.green)
+                    if !viewModel.errors.isEmpty {
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.red)
+                    } else {
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.green)
+                    }
                 }
                 .onChange(of: cronPattern) {
                     viewModel.cronPatternDidChange(cronPattern)
                 }
 
-            if let error = viewModel.errors.first {
+            if let errorString = viewModel.errorString {
                 Text("Invalid Cron Pattern")
                     .fontDesign(.rounded)
                     .foregroundStyle(.red)
                     .frame(maxWidth: .infinity, alignment: .leading)
 //                    .padding(.top, 10)
-                Text([error?.title, ": ", error?.errorDescription].compactMap({ $0 }).joined())
+                Text(errorString)
                     .fontDesign(.rounded)
                     .font(.caption)
                     .multilineTextAlignment(.leading)

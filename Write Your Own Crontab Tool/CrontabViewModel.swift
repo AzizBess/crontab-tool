@@ -8,7 +8,7 @@
 import SwiftUI
 
 class CrontabViewModel: ObservableObject {
-    @Published var errors = [CustomError?]()
+    @Published var errors = [CustomError]()
     
     let symbolsMeaning: [(symbol: String, meaning: String)] =
     [
@@ -18,6 +18,14 @@ class CrontabViewModel: ObservableObject {
         (symbol:"/", meaning: "step values (i.e. 1/10)")
     ]
 
+    var errorString: String? {
+        guard !errors.isEmpty else { return nil }
+        return errors.compactMap {
+            [$0.title.capitalized, ": ", $0.errorDescription].joined()
+        }
+        .joined(separator: "\n")
+    }
+    
     func cronPatternDidChange(_ cronPattern: String) {
         guard cronPattern.components(separatedBy: " ").count == 5 else {
             // Display Error (cronPattern size is not complete YET !!!)
