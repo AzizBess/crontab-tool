@@ -19,8 +19,7 @@ import Foundation
 
 class ValidationManager {
     static let shared = ValidationManager()
-    
-    
+
     private let separationCharacters = ["-", ",", "/"]
     private let singleSpecialCharacters: [String] = ["*"]
     
@@ -77,16 +76,20 @@ class ValidationManager {
             }
         } else {
             let separators = Set(value.map { String($0) }).intersection(Set(separationCharacters))
-            error = separators.compactMap {
-                value.components(separatedBy: $0).compactMap {
-                    return validateValue(
-                        $0,
-                        field: field,
-                        intRange: intRange,
-                        singleSpecialCharacters: singleSpecialCharacters
-                    )
+            if !separators.isEmpty {
+                error = separators.compactMap {
+                    value.components(separatedBy: $0).compactMap {
+                        return validateValue(
+                            $0,
+                            field: field,
+                            intRange: intRange,
+                            singleSpecialCharacters: singleSpecialCharacters
+                        )
+                    }.first
                 }.first
-            }.first
+            } else {
+                error = validateSymbolValue(value, field: field)
+            }
         }
         
         return error

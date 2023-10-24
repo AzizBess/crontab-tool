@@ -46,7 +46,7 @@ class CrontabViewModel: ObservableObject {
     }
     
     func cronPatternDidChange(_ cronPattern: String) {
-        guard cronPattern.components(separatedBy: " ").count == 5 else {
+        guard cronPattern.components(separatedBy: " ").filter({ !$0.isEmpty }).count == 5 else {
             // Display Error (cronPattern size is not complete YET !!!)
             return
         }
