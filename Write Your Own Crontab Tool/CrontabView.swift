@@ -23,13 +23,8 @@ struct CrontabView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding()
                 .overlay {
-                    if !viewModel.errors.isEmpty {
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.red)
-                    } else {
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.green)
-                    }
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(viewModel.validityColor(for: cronPattern))
                 }
                 .onChange(of: cronPattern) {
                     viewModel.cronPatternDidChange(cronPattern)

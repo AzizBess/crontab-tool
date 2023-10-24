@@ -18,6 +18,25 @@ class CrontabViewModel: ObservableObject {
         (symbol:"/", meaning: "step values (i.e. 1/10)")
     ]
 
+    func incomplete(_ cronPattern: String) -> Bool {
+        cronPattern.components(separatedBy: " ").filter({ !$0.isEmpty }).count < 5
+    }
+   
+    func validityColor(for cronPattern: String) -> Color {
+        if cronPattern.isEmpty {
+            return Color.gray
+        }
+        if incomplete(cronPattern) {
+            return Color.orange
+        }
+        if !errors.isEmpty {
+            return Color.red
+        } else {
+            return Color.green
+        }
+    }
+    
+
     var errorString: String? {
         guard !errors.isEmpty else { return nil }
         return errors.compactMap {
