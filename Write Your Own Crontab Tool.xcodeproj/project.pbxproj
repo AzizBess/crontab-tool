@@ -15,6 +15,7 @@
 		8B0244AD2AE5531D00BE4A61 /* Write_Your_Own_Crontab_ToolUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0244AC2AE5531D00BE4A61 /* Write_Your_Own_Crontab_ToolUITests.swift */; };
 		8B0244AF2AE5531D00BE4A61 /* Write_Your_Own_Crontab_ToolUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0244AE2AE5531D00BE4A61 /* Write_Your_Own_Crontab_ToolUITestsLaunchTests.swift */; };
 		8B0244BC2AE55C1900BE4A61 /* CrontabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0244BB2AE55C1900BE4A61 /* CrontabViewModel.swift */; };
+		8B06856A2AE81D0E00893D06 /* ConditionalViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0685692AE81D0E00893D06 /* ConditionalViewExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		8B0244AC2AE5531D00BE4A61 /* Write_Your_Own_Crontab_ToolUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Write_Your_Own_Crontab_ToolUITests.swift; sourceTree = "<group>"; };
 		8B0244AE2AE5531D00BE4A61 /* Write_Your_Own_Crontab_ToolUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Write_Your_Own_Crontab_ToolUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		8B0244BB2AE55C1900BE4A61 /* CrontabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrontabViewModel.swift; sourceTree = "<group>"; };
+		8B0685692AE81D0E00893D06 /* ConditionalViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionalViewExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 		8B0244902AE5531B00BE4A61 /* Write Your Own Crontab Tool */ = {
 			isa = PBXGroup;
 			children = (
+				8B0685692AE81D0E00893D06 /* ConditionalViewExtension.swift */,
 				8B0244912AE5531B00BE4A61 /* Write_Your_Own_Crontab_ToolApp.swift */,
 				8B0244932AE5531B00BE4A61 /* CrontabView.swift */,
 				8B0244BB2AE55C1900BE4A61 /* CrontabViewModel.swift */,
@@ -261,6 +264,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B0244BC2AE55C1900BE4A61 /* CrontabViewModel.swift in Sources */,
+				8B06856A2AE81D0E00893D06 /* ConditionalViewExtension.swift in Sources */,
 				8B0244942AE5531B00BE4A61 /* CrontabView.swift in Sources */,
 				8B0244922AE5531B00BE4A61 /* Write_Your_Own_Crontab_ToolApp.swift in Sources */,
 			);

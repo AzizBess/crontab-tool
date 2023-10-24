@@ -74,7 +74,7 @@ class CrontabViewModel: ObservableObject {
     func validateIntValue(_ value: Int, field: Field, intRange: ClosedRange<Int>) -> CustomError? {
         var error: CustomError?
         if !intRange.contains(value) {
-            error = CustomError(title: "Invalid \(field.displayName) Field", description: "\(value) Not in Accepted Range: \(intRange)")
+            error = generateError(for: field, value: String(value), rangeDescription: intRange.description)
         }
         return error
     }
@@ -84,7 +84,7 @@ class CrontabViewModel: ObservableObject {
         
         if value.count == 1 {
             if !singleSpecialCharacters.contains(value) {
-                error = CustomError(title: "Invalid \(field.displayName)", description: "Special character \(value) not in accepted range: [\(singleSpecialCharacters.joined(separator: ", "))]")
+                error = generateError(for: field, value: value, rangeDescription: "[\(singleSpecialCharacters.joined(separator: ", "))]")
             }
         } else {
             if let separator = Set(value.map { String($0) }).intersection(Set(separationCharacters)).first {
@@ -108,9 +108,9 @@ class CrontabViewModel: ObservableObject {
         var error: CustomError?
         
         if let symbolRange = symbolRange(for: field), !symbolRange.contains(value) {
-            error = CustomError(title: "Invalid \(field.displayName)", description: "Symbol \(value) not in accepted range: [\(symbolRange.joined(separator: ", "))]")
+            error = generateError(for: field, value: value, rangeDescription: "[\(symbolRange.joined(separator: ", "))]")
         }
-                
+        
         return error
     }
     
@@ -157,6 +157,13 @@ class CrontabViewModel: ObservableObject {
         default:
             return nil
         }
+    }
+    
+    private func generateError(for field: Field, value: String, rangeDescription: String) -> CustomError {
+        return CustomError(
+            title: ["(", field.displayName.capitalized, ")"].joined(),
+            description: "Expression '\(value)' is not a valid increment value. Accepted values are \(rangeDescription)"
+        )
     }
 }
 
