@@ -17,6 +17,10 @@
 		8B0244BC2AE55C1900BE4A61 /* CrontabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0244BB2AE55C1900BE4A61 /* CrontabViewModel.swift */; };
 		8B06856A2AE81D0E00893D06 /* ConditionalViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0685692AE81D0E00893D06 /* ConditionalViewExtension.swift */; };
 		8B06856C2AE8412700893D06 /* ValidationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B06856B2AE8412700893D06 /* ValidationManager.swift */; };
+		8B0B8A432AF00EB1007022A0 /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0B8A422AF00EB1007022A0 /* Field.swift */; };
+		8B0B8A452AF00EC9007022A0 /* CustomError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0B8A442AF00EC9007022A0 /* CustomError.swift */; };
+		8B0B8A472AF00F66007022A0 /* ErrorGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0B8A462AF00F66007022A0 /* ErrorGenerator.swift */; };
+		8B0B8A492AF01592007022A0 /* CronConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0B8A482AF01592007022A0 /* CronConfiguration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +54,10 @@
 		8B0244BB2AE55C1900BE4A61 /* CrontabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrontabViewModel.swift; sourceTree = "<group>"; };
 		8B0685692AE81D0E00893D06 /* ConditionalViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionalViewExtension.swift; sourceTree = "<group>"; };
 		8B06856B2AE8412700893D06 /* ValidationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationManager.swift; sourceTree = "<group>"; };
+		8B0B8A422AF00EB1007022A0 /* Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
+		8B0B8A442AF00EC9007022A0 /* CustomError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomError.swift; sourceTree = "<group>"; };
+		8B0B8A462AF00F66007022A0 /* ErrorGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorGenerator.swift; sourceTree = "<group>"; };
+		8B0B8A482AF01592007022A0 /* CronConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CronConfiguration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +88,8 @@
 		8B0244852AE5531B00BE4A61 = {
 			isa = PBXGroup;
 			children = (
+				8B0B8A482AF01592007022A0 /* CronConfiguration.swift */,
+				8B0B8A462AF00F66007022A0 /* ErrorGenerator.swift */,
 				8B0244902AE5531B00BE4A61 /* Write Your Own Crontab Tool */,
 				8B0244A12AE5531D00BE4A61 /* Write Your Own Crontab ToolTests */,
 				8B0244AB2AE5531D00BE4A61 /* Write Your Own Crontab ToolUITests */,
@@ -101,6 +111,8 @@
 			isa = PBXGroup;
 			children = (
 				8B06856B2AE8412700893D06 /* ValidationManager.swift */,
+				8B0B8A442AF00EC9007022A0 /* CustomError.swift */,
+				8B0B8A422AF00EB1007022A0 /* Field.swift */,
 				8B0685692AE81D0E00893D06 /* ConditionalViewExtension.swift */,
 				8B0244912AE5531B00BE4A61 /* Write_Your_Own_Crontab_ToolApp.swift */,
 				8B0244932AE5531B00BE4A61 /* CrontabView.swift */,
@@ -266,8 +278,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B0B8A472AF00F66007022A0 /* ErrorGenerator.swift in Sources */,
+				8B0B8A452AF00EC9007022A0 /* CustomError.swift in Sources */,
 				8B06856C2AE8412700893D06 /* ValidationManager.swift in Sources */,
 				8B0244BC2AE55C1900BE4A61 /* CrontabViewModel.swift in Sources */,
+				8B0B8A432AF00EB1007022A0 /* Field.swift in Sources */,
+				8B0B8A492AF01592007022A0 /* CronConfiguration.swift in Sources */,
 				8B06856A2AE81D0E00893D06 /* ConditionalViewExtension.swift in Sources */,
 				8B0244942AE5531B00BE4A61 /* CrontabView.swift in Sources */,
 				8B0244922AE5531B00BE4A61 /* Write_Your_Own_Crontab_ToolApp.swift in Sources */,
