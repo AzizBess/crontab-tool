@@ -28,7 +28,7 @@ final class Write_Your_Own_Crontab_ToolTests: XCTestCase {
     
     func testMinutes() throws {
         let cronPattern = "*,* * * * *"
-        let error = ValidationManager.shared.validateField(.minutes, cronPattern: cronPattern)
+        let error = ValidationService.shared.validateField(.minutes, cronPattern: cronPattern)
         print(error)
         XCTAssertNil(error)
     }

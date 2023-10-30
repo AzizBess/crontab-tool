@@ -17,8 +17,8 @@ import Foundation
 //# │ │ │ │ │
 //# * * * * * <command>
 
-class ValidationManager {
-    static let shared = ValidationManager()
+class ValidationService {
+    static let shared = ValidationService()
     func validateField(_ field: Field, cronPattern: String) -> CustomError? {
         guard let value = field.value(from: cronPattern) else { return nil }
         return validateValue(
@@ -41,12 +41,12 @@ class ValidationManager {
 }
 
 // MARK: - Type Validation
-private extension ValidationManager {
+private extension ValidationService {
     func validateIntValue(_ value: Int, field: Field) -> CustomError? {
         var error: CustomError?
         let intRange = field.integerRange
         if !intRange.contains(value) {
-            error = ErrorGenerator.shared.generate(for: field, value: String(value))
+            error = CustomErrorService.shared.generateError(for: field, value: String(value))
         }
         return error
     }
@@ -57,7 +57,7 @@ private extension ValidationManager {
         if value.count == 1 {
             let singleSpecialCharacters = field.singleSpecialCharacters
             if !singleSpecialCharacters.contains(value) {
-                error = ErrorGenerator.shared.generate(for: field, value: value)
+                error = CustomErrorService.shared.generateError(for: field, value: value)
             }
         } else {
             let separators = value.filter({ CronConfiguration.separationCharacters.contains(String($0)) })
@@ -77,7 +77,7 @@ private extension ValidationManager {
         var error: CustomError?
         
         if let symbolRange = field.symbolRange, !symbolRange.contains(value) {
-            error = ErrorGenerator.shared.generate(for: field, value: value)
+            error = CustomErrorService.shared.generateError(for: field, value: value)
         }
         
         return error
@@ -104,7 +104,7 @@ private extension ValidationManager {
                 validateValue($0, field: field)
             }.first
         } else {
-            error = ErrorGenerator.shared.generate(for: field, value: value, customMessage: "You need to provide exactly two values around the '\(CronConfiguration.rangeSeparator)' separator.")
+            error = CustomErrorService.shared.generate(for: field, value: value, customMessage: "You need to provide exactly two values around the '\(CronConfiguration.rangeSeparator)' separator.")
         }
         return error
     }
@@ -118,7 +118,7 @@ private extension ValidationManager {
                 validateValue($0, field: field)
             }.first
         } else {
-            error = ErrorGenerator.shared.generate(for: field, value: value, customMessage: "You need to provide exactly two values around the '\(CronConfiguration.stepSeparator)' separator.")
+            error = CustomErrorService.shared.generate(for: field, value: value, customMessage: "You need to provide exactly two values around the '\(CronConfiguration.stepSeparator)' separator.")
         }
         
         return error

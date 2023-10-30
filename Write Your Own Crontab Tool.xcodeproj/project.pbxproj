@@ -16,10 +16,10 @@
 		8B0244AF2AE5531D00BE4A61 /* Write_Your_Own_Crontab_ToolUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0244AE2AE5531D00BE4A61 /* Write_Your_Own_Crontab_ToolUITestsLaunchTests.swift */; };
 		8B0244BC2AE55C1900BE4A61 /* CrontabViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0244BB2AE55C1900BE4A61 /* CrontabViewModel.swift */; };
 		8B06856A2AE81D0E00893D06 /* ConditionalViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0685692AE81D0E00893D06 /* ConditionalViewExtension.swift */; };
-		8B06856C2AE8412700893D06 /* ValidationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B06856B2AE8412700893D06 /* ValidationManager.swift */; };
+		8B06856C2AE8412700893D06 /* ValidationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B06856B2AE8412700893D06 /* ValidationService.swift */; };
 		8B0B8A432AF00EB1007022A0 /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0B8A422AF00EB1007022A0 /* Field.swift */; };
 		8B0B8A452AF00EC9007022A0 /* CustomError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0B8A442AF00EC9007022A0 /* CustomError.swift */; };
-		8B0B8A472AF00F66007022A0 /* ErrorGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0B8A462AF00F66007022A0 /* ErrorGenerator.swift */; };
+		8B0B8A472AF00F66007022A0 /* CustomErrorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0B8A462AF00F66007022A0 /* CustomErrorService.swift */; };
 		8B0B8A492AF01592007022A0 /* CronConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B0B8A482AF01592007022A0 /* CronConfiguration.swift */; };
 /* End PBXBuildFile section */
 
@@ -53,10 +53,10 @@
 		8B0244AE2AE5531D00BE4A61 /* Write_Your_Own_Crontab_ToolUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Write_Your_Own_Crontab_ToolUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		8B0244BB2AE55C1900BE4A61 /* CrontabViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrontabViewModel.swift; sourceTree = "<group>"; };
 		8B0685692AE81D0E00893D06 /* ConditionalViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionalViewExtension.swift; sourceTree = "<group>"; };
-		8B06856B2AE8412700893D06 /* ValidationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationManager.swift; sourceTree = "<group>"; };
+		8B06856B2AE8412700893D06 /* ValidationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationService.swift; sourceTree = "<group>"; };
 		8B0B8A422AF00EB1007022A0 /* Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
 		8B0B8A442AF00EC9007022A0 /* CustomError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomError.swift; sourceTree = "<group>"; };
-		8B0B8A462AF00F66007022A0 /* ErrorGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorGenerator.swift; sourceTree = "<group>"; };
+		8B0B8A462AF00F66007022A0 /* CustomErrorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomErrorService.swift; sourceTree = "<group>"; };
 		8B0B8A482AF01592007022A0 /* CronConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CronConfiguration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -88,8 +88,6 @@
 		8B0244852AE5531B00BE4A61 = {
 			isa = PBXGroup;
 			children = (
-				8B0B8A482AF01592007022A0 /* CronConfiguration.swift */,
-				8B0B8A462AF00F66007022A0 /* ErrorGenerator.swift */,
 				8B0244902AE5531B00BE4A61 /* Write Your Own Crontab Tool */,
 				8B0244A12AE5531D00BE4A61 /* Write Your Own Crontab ToolTests */,
 				8B0244AB2AE5531D00BE4A61 /* Write Your Own Crontab ToolUITests */,
@@ -110,13 +108,14 @@
 		8B0244902AE5531B00BE4A61 /* Write Your Own Crontab Tool */ = {
 			isa = PBXGroup;
 			children = (
-				8B06856B2AE8412700893D06 /* ValidationManager.swift */,
+				8BD26CCA2AF0321E00AA869C /* ViewModel */,
+				8BD26CC92AF0321800AA869C /* View */,
+				8BD26CCC2AF0332000AA869C /* Extension */,
+				8BD26CCB2AF0330400AA869C /* Sercice */,
+				8B0B8A482AF01592007022A0 /* CronConfiguration.swift */,
 				8B0B8A442AF00EC9007022A0 /* CustomError.swift */,
 				8B0B8A422AF00EB1007022A0 /* Field.swift */,
-				8B0685692AE81D0E00893D06 /* ConditionalViewExtension.swift */,
 				8B0244912AE5531B00BE4A61 /* Write_Your_Own_Crontab_ToolApp.swift */,
-				8B0244932AE5531B00BE4A61 /* CrontabView.swift */,
-				8B0244BB2AE55C1900BE4A61 /* CrontabViewModel.swift */,
 				8B0244952AE5531C00BE4A61 /* Assets.xcassets */,
 				8B0244972AE5531C00BE4A61 /* Preview Content */,
 			);
@@ -146,6 +145,39 @@
 				8B0244AE2AE5531D00BE4A61 /* Write_Your_Own_Crontab_ToolUITestsLaunchTests.swift */,
 			);
 			path = "Write Your Own Crontab ToolUITests";
+			sourceTree = "<group>";
+		};
+		8BD26CC92AF0321800AA869C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8B0244932AE5531B00BE4A61 /* CrontabView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8BD26CCA2AF0321E00AA869C /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				8B0244BB2AE55C1900BE4A61 /* CrontabViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		8BD26CCB2AF0330400AA869C /* Sercice */ = {
+			isa = PBXGroup;
+			children = (
+				8B0B8A462AF00F66007022A0 /* CustomErrorService.swift */,
+				8B06856B2AE8412700893D06 /* ValidationService.swift */,
+			);
+			path = Sercice;
+			sourceTree = "<group>";
+		};
+		8BD26CCC2AF0332000AA869C /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				8B0685692AE81D0E00893D06 /* ConditionalViewExtension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -278,9 +310,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B0B8A472AF00F66007022A0 /* ErrorGenerator.swift in Sources */,
+				8B0B8A472AF00F66007022A0 /* CustomErrorService.swift in Sources */,
 				8B0B8A452AF00EC9007022A0 /* CustomError.swift in Sources */,
-				8B06856C2AE8412700893D06 /* ValidationManager.swift in Sources */,
+				8B06856C2AE8412700893D06 /* ValidationService.swift in Sources */,
 				8B0244BC2AE55C1900BE4A61 /* CrontabViewModel.swift in Sources */,
 				8B0B8A432AF00EB1007022A0 /* Field.swift in Sources */,
 				8B0B8A492AF01592007022A0 /* CronConfiguration.swift in Sources */,

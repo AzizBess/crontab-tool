@@ -1,5 +1,5 @@
 //
-//  ErrorGenerator.swift
+//  CustomErrorGenerator.swift
 //  Write Your Own Crontab Tool
 //
 //  Created by Aziz Bessrour on 2023-10-30.
@@ -7,10 +7,10 @@
 
 import Foundation
 
-class ErrorGenerator {
-    static let shared = ErrorGenerator()
+class CustomErrorService {
+    static let shared = CustomErrorService()
     
-    func generate(for field: Field, value: String) -> CustomError {
+    func generateError(for field: Field, value: String) -> CustomError {
         return CustomError(
             title: ["(", field.displayName.capitalized, ")"].joined(),
             description: "Expression '\(value)' is not a valid value. Accepted values are [\(rangeDescriptor(value: value, field: field) ?? "Error Generating the range desciption")]"
