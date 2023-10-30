@@ -20,6 +20,9 @@ import Foundation
 class ValidationManager {
     static let shared = ValidationManager()
 
+    final let listSeparator = ","
+    final let rangeSeparator = "-"
+    final let stepSeparator = "/"
     private let separationCharacters = ["-", ",", "/"]
     private let singleSpecialCharacters: [String] = ["*"]
     
@@ -30,44 +33,42 @@ class ValidationManager {
     private let monthsIntRange = 1...12
     private let monthsSymbolRange = DateFormatter().shortMonthSymbols.compactMap { String($0).uppercased() }
     private let dayOfWeekIntRange = 0...6
-    let dayOfWeekSymbolRange = DateFormatter().shortWeekdaySymbols.compactMap { String($0).uppercased() }
+    private let dayOfWeekSymbolRange = DateFormatter().shortWeekdaySymbols.compactMap { String($0).uppercased() }
     
     func validateField(_ field: Field, cronPattern: String) -> CustomError? {
-        validateValue(
-            value(for: field, cronPattern),
-            field: field,
-            intRange: integerRange(for: field),
-            singleSpecialCharacters: singleSpecialCharacters(for: field)
+        guard let value = value(for: field, cronPattern) else { return nil }
+        return validateValue(
+            value,
+            field: field
         )
     }
     
     private func validateValue(
         _ value: String,
-        field: Field,
-        intRange: ClosedRange<Int>,
-        singleSpecialCharacters: [String]
+        field: Field
     ) -> CustomError? {
         
         var error: CustomError?
         
         if let intValue = Int(value) {
-            error = validateIntValue(intValue, field: field, intRange: intRange)
+            error = validateIntValue(intValue, field: field)
         } else {
-            error = validateStringValue(value, field: field, intRange: intRange)
+            error = validateStringValue(value, field: field)
         }
         
         return error
     }
     
-    private func validateIntValue(_ value: Int, field: Field, intRange: ClosedRange<Int>) -> CustomError? {
+    private func validateIntValue(_ value: Int, field: Field) -> CustomError? {
         var error: CustomError?
+        let intRange = integerRange(for: field)
         if !intRange.contains(value) {
             error = generateError(for: field, value: String(value), rangeDescription: intRange.description)
         }
         return error
     }
     
-    private func validateStringValue(_ value: String, field: Field, intRange: ClosedRange<Int>) -> CustomError? {
+    private func validateStringValue(_ value: String, field: Field) -> CustomError? {
         var error: CustomError?
         
         if value.count == 1 {
@@ -75,18 +76,11 @@ class ValidationManager {
                 error = generateError(for: field, value: value, rangeDescription: "[\(singleSpecialCharacters.joined(separator: ", "))]")
             }
         } else {
-            let separators = Set(value.map { String($0) }).intersection(Set(separationCharacters))
+            let separators = value.filter({ separationCharacters.contains(String($0)) })
             if !separators.isEmpty {
-                error = separators.compactMap {
-                    value.components(separatedBy: $0).compactMap {
-                        return validateValue(
-                            $0,
-                            field: field,
-                            intRange: intRange,
-                            singleSpecialCharacters: singleSpecialCharacters
-                        )
-                    }.first
-                }.first
+                error = validateListSeparator(value, field: field) ??
+                validateRangeSeparator(value, field: field) ??
+                validateStepSeparator(value, field: field)
             } else {
                 error = validateSymbolValue(value, field: field)
             }
@@ -94,6 +88,48 @@ class ValidationManager {
         
         return error
     }
+    
+    private func validateListSeparator(_ value: String, field: Field) -> CustomError? {
+        guard value.contains(listSeparator) else { return nil }
+        var error: CustomError?
+        
+        let components = value.components(separatedBy: listSeparator).filter({ !$0.isEmpty })
+        error = components.compactMap {
+            validateValue($0, field: field)
+        }.first
+        
+        return error
+    }
+    
+    private func validateRangeSeparator(_ value: String, field: Field) -> CustomError? {
+        guard value.contains(rangeSeparator) else { return nil }
+        var error: CustomError?
+        let components = value.components(separatedBy: rangeSeparator).filter({ !$0.isEmpty })
+        if components.count == 2 {
+            error = components.compactMap {
+                validateValue($0, field: field)
+            }.first
+        } else {
+            error = generateError(for: field, value: value, customMessage: "You need to provide exactly two values around the '\(rangeSeparator)' separator.")
+        }
+        return error
+    }
+    
+    private func validateStepSeparator(_ value: String, field: Field) -> CustomError? {
+        guard value.contains(stepSeparator) else { return nil }
+        var error: CustomError?
+        let components = value.components(separatedBy: stepSeparator).filter({ !$0.isEmpty })
+        if components.count == 2 {
+            error = components.compactMap {
+                validateValue($0, field: field)
+            }.first
+        } else {
+            error = generateError(for: field, value: value, customMessage: "You need to provide exactly two values around the '\(stepSeparator)' separator.")
+        }
+        
+        return error
+    }
+    
     
     private func validateSymbolValue(_ value: String, field: Field) -> CustomError? {
         var error: CustomError?
@@ -105,8 +141,11 @@ class ValidationManager {
         return error
     }
     
-    private func value(for field: Field, _ cronPattern: String) -> String {
-        cronPattern.components(separatedBy: " ")[field.rawValue]
+    private func value(for field: Field, _ cronPattern: String) -> String? {
+        let fieldIndex = field.rawValue
+        let components = cronPattern.components(separatedBy: " ").filter({ !$0.isEmpty })
+        guard components.indices.contains(fieldIndex) else { return nil }
+        return components[fieldIndex]
     }
     
     private func integerRange(for field: Field) -> ClosedRange<Int> {
@@ -153,7 +192,14 @@ class ValidationManager {
     private func generateError(for field: Field, value: String, rangeDescription: String) -> CustomError {
         return CustomError(
             title: ["(", field.displayName.capitalized, ")"].joined(),
-            description: "Expression '\(value)' is not a valid increment value. Accepted values are \(rangeDescription)"
+            description: "Expression '\(value)' is not a valid value. Accepted values are \(rangeDescription)"
+        )
+    }
+    
+    private func generateError(for field: Field, value: String, customMessage: String) -> CustomError {
+        return CustomError(
+            title: ["(", field.displayName.capitalized, ")"].joined(),
+            description: "Expression '\(value)' is not a valid value. \(customMessage)"
         )
     }
 }

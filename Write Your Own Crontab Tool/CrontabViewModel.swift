@@ -19,7 +19,7 @@ class CrontabViewModel: ObservableObject {
     ]
 
     func incomplete(_ cronPattern: String) -> Bool {
-        cronPattern.components(separatedBy: " ").filter({ !$0.isEmpty }).count < 5
+        cronPattern.components(separatedBy: " ").filter({ !$0.isEmpty }).count != 5
     }
    
     func validityColor(for cronPattern: String) -> Color {
