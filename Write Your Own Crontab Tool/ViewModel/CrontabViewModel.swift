@@ -12,10 +12,14 @@ class CrontabViewModel: ObservableObject {
     
     let symbolsMeaning: [(symbol: String, meaning: String)] =
     [
-        (symbol: "*", meaning: "any value (wildcard)"),
-        (symbol:",", meaning: "list separator (i.e.: 0, 15, 30, 45)"),
-        (symbol:"-", meaning: "ranger separator (i.e. 1-5)"),
-        (symbol:"/", meaning: "step values (i.e. 1/10)")
+        (symbol: CronConfiguration.anySymbol, meaning: "any value (wildcard)"),
+        (symbol: CronConfiguration.listSeparator, meaning: "list separator (i.e.: 0, 15, 30, 45)"),
+        (symbol: CronConfiguration.rangeSeparator, meaning: "ranger separator (i.e. 1-5)"),
+        (symbol: CronConfiguration.stepSeparator, meaning: "step values (i.e. 1/10)"),
+        (symbol: CronConfiguration.questionSymbol, meaning: "no specific value"),
+        (symbol: CronConfiguration.LSymbol, meaning: "last, as in last day of the week"),
+        (symbol: CronConfiguration.WSymbol, meaning: "weekday, Monday-Friday"),
+        (symbol: CronConfiguration.hashtagSymbol, meaning: "specify 'the nth' XXX day of the month")
     ]
 
     func incomplete(_ cronPattern: String) -> Bool {
