@@ -53,13 +53,14 @@ private extension ValidationService {
     
     func validateStringValue(_ value: String, field: Field) -> CustomError? {
         var error: CustomError?
-        let separators = value.filter({ field.separationCharacters.contains(String($0)) })
-        if value.count == 1 && separators.isEmpty {
+        
+        if value.count == 1 && !field.separationCharacters.contains(value) {
             let singleSpecialCharacters = field.singleSpecialCharacters
             if !singleSpecialCharacters.contains(value) {
                 error = CustomErrorService.shared.generateError(for: field, value: value)
             }
         } else {
+            let separators = value.filter({ field.separationCharacters.contains(String($0)) })
             if !separators.isEmpty {
                 error = validateListSeparator(value, field: field) ??
                 validateRangeSeparator(value, field: field) ??
@@ -96,46 +97,30 @@ private extension ValidationService {
     }
     
     func validateRangeSeparator(_ value: String, field: Field) -> CustomError? {
-        guard value.contains(CronConfiguration.rangeSeparator) else { return nil }
-        var error: CustomError?
-        let components = value.components(separatedBy: CronConfiguration.rangeSeparator).filter({ !$0.isEmpty })
-        if components.count == 2 {
-            error = components.compactMap {
-                validateValue($0, field: field)
-            }.first
-        } else {
-            error = CustomErrorService.shared.generate(for: field, value: value, customMessage: "You need to provide exactly two values around the '\(CronConfiguration.rangeSeparator)' separator.")
-        }
-        return error
+        validateTwoValueSeparator(value, field: field, separator: CronConfiguration.rangeSeparator)
     }
     
     func validateStepSeparator(_ value: String, field: Field) -> CustomError? {
-        guard value.contains(CronConfiguration.stepSeparator) else { return nil }
-        var error: CustomError?
-        let components = value.components(separatedBy: CronConfiguration.stepSeparator).filter({ !$0.isEmpty })
-        if components.count == 2 {
-            error = components.compactMap {
-                validateValue($0, field: field)
-            }.first
-        } else {
-            error = CustomErrorService.shared.generate(for: field, value: value, customMessage: "You need to provide exactly two values around the '\(CronConfiguration.stepSeparator)' separator.")
-        }
-        
-        return error
+        validateTwoValueSeparator(value, field: field, separator: CronConfiguration.stepSeparator)
     }
     
     func validateHashtagSeparator(_ value: String, field: Field) -> CustomError? {
-        guard value.contains(CronConfiguration.hashtagSymbol) else { return nil }
+        guard field == .dayOfWeek else { return nil }
+        return validateTwoValueSeparator(value, field: field, separator: CronConfiguration.hashtagSymbol)
+    }
+    
+    func validateTwoValueSeparator(_ value: String, field: Field, separator: String) -> CustomError? {
+        guard value.contains(separator) else { return nil }
         var error: CustomError?
-        let components = value.components(separatedBy: CronConfiguration.hashtagSymbol).filter({ !$0.isEmpty })
+        let components = value.components(separatedBy: separator).filter({ !$0.isEmpty })
         if components.count == 2 {
             error = components.compactMap {
                 validateValue($0, field: field)
             }.first
         } else {
-            error = CustomErrorService.shared.generate(for: field, value: value, customMessage: "You need to provide exactly two values around the '\(CronConfiguration.hashtagSymbol)' separator.")
+            error = CustomErrorService.shared.generate(for: field, value: value, customMessage: "You need to provide exactly two values around the '\(separator)' separator.")
         }
-        
+
         return error
     }
 }
