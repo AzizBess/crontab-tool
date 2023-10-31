@@ -58,7 +58,7 @@ class CrontabViewModel: ObservableObject {
         errors.removeAll()
 
         errors = Field.allCases.compactMap {
-            ValidationManager.shared.validateField($0, cronPattern: cronPattern)
+            ValidationService.shared.validateField($0, cronPattern: cronPattern)
         }
     }
 }

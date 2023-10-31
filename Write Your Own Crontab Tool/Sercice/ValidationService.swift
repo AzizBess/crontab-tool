@@ -1,5 +1,5 @@
 //
-//  ValidationManager.swift
+//  ValidationService.swift
 //  Write Your Own Crontab Tool
 //
 //  Created by Aziz Bessrour on 2023-10-24.
