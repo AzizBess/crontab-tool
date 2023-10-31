@@ -53,18 +53,18 @@ private extension ValidationService {
     
     func validateStringValue(_ value: String, field: Field) -> CustomError? {
         var error: CustomError?
-        
-        if value.count == 1 {
+        let separators = value.filter({ field.separationCharacters.contains(String($0)) })
+        if value.count == 1 && separators.isEmpty {
             let singleSpecialCharacters = field.singleSpecialCharacters
             if !singleSpecialCharacters.contains(value) {
                 error = CustomErrorService.shared.generateError(for: field, value: value)
             }
         } else {
-            let separators = value.filter({ CronConfiguration.separationCharacters.contains(String($0)) })
             if !separators.isEmpty {
                 error = validateListSeparator(value, field: field) ??
                 validateRangeSeparator(value, field: field) ??
-                validateStepSeparator(value, field: field)
+                validateStepSeparator(value, field: field) ??
+                validateHashtagSeparator(value, field: field)
             } else {
                 error = validateSymbolValue(value, field: field)
             }
@@ -123,6 +123,21 @@ private extension ValidationService {
         
         return error
     }
+    
+    func validateHashtagSeparator(_ value: String, field: Field) -> CustomError? {
+        guard value.contains(CronConfiguration.hashtagSymbol) else { return nil }
+        var error: CustomError?
+        let components = value.components(separatedBy: CronConfiguration.hashtagSymbol).filter({ !$0.isEmpty })
+        if components.count == 2 {
+            error = components.compactMap {
+                validateValue($0, field: field)
+            }.first
+        } else {
+            error = CustomErrorService.shared.generate(for: field, value: value, customMessage: "You need to provide exactly two values around the '\(CronConfiguration.hashtagSymbol)' separator.")
+        }
+        
+        return error
+    }
 }
 
 // MARK: - Field Helpers
@@ -161,6 +176,15 @@ extension Field {
             return CronConfiguration.singleSpecialCharacters
         case .dayOfWeek:
             return CronConfiguration.singleSpecialCharacters + [CronConfiguration.questionSymbol, CronConfiguration.LSymbol, CronConfiguration.hashtagSymbol]
+        }
+    }
+    
+    var separationCharacters: [String] {
+        switch self {
+        case .dayOfWeek:
+            return CronConfiguration.separationCharacters + CollectionOfOne(CronConfiguration.hashtagSymbol)
+        default:
+            return CronConfiguration.separationCharacters
         }
     }
     
