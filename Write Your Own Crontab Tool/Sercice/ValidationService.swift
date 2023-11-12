@@ -85,10 +85,10 @@ private extension ValidationService {
     }
 
     func validateListSeparator(_ value: String, field: Field) -> CustomError? {
-        guard value.contains(CronConfiguration.listSeparator) else { return nil }
+        guard value.contains(listSeparator) else { return nil }
         var error: CustomError?
         
-        let components = value.components(separatedBy: CronConfiguration.listSeparator).filter({ !$0.isEmpty })
+        let components = value.components(separatedBy: listSeparator).filter({ !$0.isEmpty })
         error = components.compactMap {
             validateValue($0, field: field)
         }.first
@@ -97,16 +97,16 @@ private extension ValidationService {
     }
     
     func validateRangeSeparator(_ value: String, field: Field) -> CustomError? {
-        validateTwoValueSeparator(value, field: field, separator: CronConfiguration.rangeSeparator)
+        validateTwoValueSeparator(value, field: field, separator: rangeSeparator)
     }
     
     func validateStepSeparator(_ value: String, field: Field) -> CustomError? {
-        validateTwoValueSeparator(value, field: field, separator: CronConfiguration.stepSeparator)
+        validateTwoValueSeparator(value, field: field, separator: stepSeparator)
     }
     
     func validateHashtagSeparator(_ value: String, field: Field) -> CustomError? {
         guard field == .dayOfWeek else { return nil }
-        return validateTwoValueSeparator(value, field: field, separator: CronConfiguration.hashtagSymbol)
+        return validateTwoValueSeparator(value, field: field, separator: hashtagSymbol)
     }
     
     func validateTwoValueSeparator(_ value: String, field: Field, separator: String) -> CustomError? {
@@ -122,65 +122,5 @@ private extension ValidationService {
         }
 
         return error
-    }
-}
-
-// MARK: - Field Helpers
-extension Field {
-    func value(from cronPattern: String) -> String? {
-        let fieldIndex = rawValue
-        let components = cronPattern.components(separatedBy: " ").filter({ !$0.isEmpty })
-        guard components.indices.contains(fieldIndex) else { return nil }
-        return components[fieldIndex]
-    }
-    
-    var integerRange:ClosedRange<Int> {
-        switch self {
-        case .minutes:
-            return CronConfiguration.minutesRange
-        case .hours:
-            return CronConfiguration.hoursRange
-        case .dayOfMonth:
-            return CronConfiguration.dayOfMonthIntRange
-        case .months:
-            return CronConfiguration.monthsIntRange
-        case .dayOfWeek:
-            return CronConfiguration.dayOfWeekIntRange
-        }
-    }
-    
-    var singleSpecialCharacters: [String] {
-        switch self {
-        case .minutes:
-            return CronConfiguration.singleSpecialCharacters
-        case .hours:
-            return CronConfiguration.singleSpecialCharacters
-        case .dayOfMonth:
-            return CronConfiguration.singleSpecialCharacters + [CronConfiguration.questionSymbol, CronConfiguration.LSymbol, CronConfiguration.WSymbol]
-        case .months:
-            return CronConfiguration.singleSpecialCharacters
-        case .dayOfWeek:
-            return CronConfiguration.singleSpecialCharacters + [CronConfiguration.questionSymbol, CronConfiguration.LSymbol, CronConfiguration.hashtagSymbol]
-        }
-    }
-    
-    var separationCharacters: [String] {
-        switch self {
-        case .dayOfWeek:
-            return CronConfiguration.separationCharacters + CollectionOfOne(CronConfiguration.hashtagSymbol)
-        default:
-            return CronConfiguration.separationCharacters
-        }
-    }
-    
-    var symbolRange: [String]? {
-        switch self {
-        case .months:
-            return CronConfiguration.monthsSymbolRange
-        case .dayOfWeek:
-            return CronConfiguration.dayOfWeekSymbolRange
-        default:
-            return nil
-        }
     }
 }

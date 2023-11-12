@@ -25,7 +25,7 @@ class CustomErrorService {
     }
     
     private func rangeDescriptor(value: String, field: Field) -> String? {
-        if let intValue = Int(value) {
+        if Int(value) != nil {
             return field.integerRange.description
         } else {
             if value.count == 1 {

@@ -10,7 +10,7 @@ import SwiftUI
 struct CrontabView: View {
     @StateObject var viewModel: CrontabViewModel
     @State var cronPattern = ""
-    @State var cronPatternMeaning = "Every Minute"
+    
     var body: some View {
         VStack {
             Image("map")
@@ -48,7 +48,7 @@ struct CrontabView: View {
             } else {
                 Text("Cron Pattern Meaning")
                     .frame(maxWidth: .infinity, alignment: .leading)
-                Text(cronPatternMeaning)
+                Text(viewModel.interpretation)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
                     .overlay {

@@ -9,21 +9,22 @@ import SwiftUI
 
 class CrontabViewModel: ObservableObject {
     @Published var errors = [CustomError]()
+    @Published var interpretation = String()
     
     let symbolsMeaning: [(symbol: String, meaning: String)] =
     [
-        (symbol: CronConfiguration.anySymbol, meaning: "any value (wildcard)"),
-        (symbol: CronConfiguration.listSeparator, meaning: "list separator (i.e.: 0, 15, 30, 45)"),
-        (symbol: CronConfiguration.rangeSeparator, meaning: "ranger separator (i.e. 1-5)"),
-        (symbol: CronConfiguration.stepSeparator, meaning: "step values (i.e. 1/10)"),
-        (symbol: CronConfiguration.questionSymbol, meaning: "no specific value"),
-        (symbol: CronConfiguration.LSymbol, meaning: "last, as in last day of the week"),
-        (symbol: CronConfiguration.WSymbol, meaning: "weekday, Monday-Friday"),
-        (symbol: CronConfiguration.hashtagSymbol, meaning: "specify 'the nth' XXX day of the month")
+        (symbol: starSymbol, meaning: "any value (wildcard)"),
+        (symbol: listSeparator, meaning: "list separator (i.e.: 0, 15, 30, 45)"),
+        (symbol: rangeSeparator, meaning: "ranger separator (i.e. 1-5)"),
+        (symbol: stepSeparator, meaning: "step values (i.e. 1/10)"),
+        (symbol: questionSymbol, meaning: "no specific value"),
+        (symbol: LSymbol, meaning: "last, as in last day of the week"),
+        (symbol: WSymbol, meaning: "weekday, Monday-Friday"),
+        (symbol: hashtagSymbol, meaning: "specify 'the nth' XXX day of the month")
     ]
 
     func incomplete(_ cronPattern: String) -> Bool {
-        cronPattern.components(separatedBy: " ").filter({ !$0.isEmpty }).count != 5
+        cronPattern.components(separatedBy: whitespaceCharacter).filter({ !$0.isEmpty }).count != 5
     }
    
     func validityColor(for cronPattern: String) -> Color {
@@ -50,7 +51,7 @@ class CrontabViewModel: ObservableObject {
     }
     
     func cronPatternDidChange(_ cronPattern: String) {
-        guard cronPattern.components(separatedBy: " ").filter({ !$0.isEmpty }).count == 5 else {
+        guard cronPattern.components(separatedBy: whitespaceCharacter).filter({ !$0.isEmpty }).count == 5 else {
             // Display Error (cronPattern size is not complete YET !!!)
             return
         }
@@ -59,6 +60,12 @@ class CrontabViewModel: ObservableObject {
 
         errors = Field.allCases.compactMap {
             ValidationService.shared.validateField($0, cronPattern: cronPattern)
+        }
+        
+        if errors.isEmpty {
+            interpretation = InterpretationService.shared.translateCronExpression(cronPattern)
+        } else {
+            interpretation.removeAll()
         }
     }
 }
